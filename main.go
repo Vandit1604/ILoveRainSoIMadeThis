@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 type Weather struct {
@@ -65,10 +67,16 @@ func main() {
 			continue
 		}
 
-		fmt.Printf("%s - %.0fC, %d, %s\n",
+		forecast := fmt.Sprintf("%s - %.0fC, %d, %s\n",
 			date.Format("15:04"),
 			hour.TempC,
 			hour.ChanceOfRain,
 			hour.Condition.Text)
+
+		if hour.ChanceOfRain == 100 {
+			color.Blue(forecast)
+		} else {
+			fmt.Print(forecast)
+		}
 	}
 }
